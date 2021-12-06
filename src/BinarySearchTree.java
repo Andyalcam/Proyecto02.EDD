@@ -1,7 +1,10 @@
+import java.io.Serializable;
 import java.util.Scanner;
+import java.lang.NumberFormatException;
+import java.lang.IndexOutOfBoundsException;
 import java.lang.NullPointerException;
 import java.util.InputMismatchException;
-public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearchTree<K,T>{
+public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearchTree<K,T>, Serializable {
 
     private BinaryNode<K, T> root;
 
@@ -104,7 +107,7 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
 
     private T delete(BinaryNode node){
         if(node == null){ //Si no existe el elemento regresará null.
-            throw new NullPointerException();
+            return null;
         }
 
         BinaryNode aux;
@@ -370,8 +373,7 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
                                 System.out.println(yellow + "\t Debes ingresar un número" + reset);
                                 in.next();
                             } catch (NullPointerException e) {
-                                System.out.println(red + "No hay ningún elemento contenido en el árbol con clave " + clave + reset);
-                                repe = false;
+                                System.out.println(e + red + "No hay ningún elemento contenido en el árbol con clave " + clave + reset);
                             }
                         }
                         break;

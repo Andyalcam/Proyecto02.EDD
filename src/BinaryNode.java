@@ -1,4 +1,6 @@
-public class BinaryNode<K extends Comparable,T>{
+import java.io.Serializable;
+
+public class BinaryNode<K extends Comparable,T> implements Serializable{
 
     private K key;
     private T element;
