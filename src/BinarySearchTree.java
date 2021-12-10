@@ -301,4 +301,13 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
     public boolean isEmpty() {
         return root == null;
     }
+
+    /**
+     * Metodo que recorre el árbol segun se decida, izq o derecha
+     */
+    /*public void rove(){
+        BinaryNode actual = new BinaryNode();
+        actual = root;
+        System.out.println(actual);
+    }*/
 }
