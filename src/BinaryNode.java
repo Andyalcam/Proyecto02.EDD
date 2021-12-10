@@ -13,7 +13,7 @@ public class BinaryNode<K extends Comparable,T> implements Serializable{
     }
 
     public boolean isLeaf(){
-        return !(this.hasRight() && this.hasLeft());
+        return !(this.hasRight() || this.hasLeft());
     }
 
     public K getKey() {

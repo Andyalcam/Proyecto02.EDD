@@ -17,7 +17,10 @@ public class Main implements Serializable {
         Utilidades util = new Utilidades();
         binarySearchTree = (BinarySearchTree)util.leerObjetoArchivo("src/BancoDePreguntas/BancoDePreguntas.dat");
 
-        while (salir == false) {
+        System.out.println("\t*** BIENVENIDO A 20 PREGUNTAS ***");
+        System.out.println("\nTeclea ");
+
+        /*while (salir == false) {
             System.out.println("1. Insertar");
             System.out.println("2. Salir");
             System.out.println("3. Mostrar Preorden");

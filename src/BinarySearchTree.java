@@ -47,6 +47,10 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
         }
     }
 
+    public void setElement(BinaryNode node, T e){
+        node.setElement(e);
+    }
+
     /**
      * Inserta un nuevo elemento al árbol.
      *
@@ -308,7 +312,7 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
     }
 
     public void addQ(){
-        
+
     }
 
     /**
@@ -317,6 +321,7 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
     public void rove(){
         Scanner in = new Scanner(System.in);
         String res;
+        String newItem, pregunta;
 
         BinaryNode actual;
         actual = root;
@@ -325,23 +330,34 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
             System.out.println(actual);
             res = in.nextLine().trim();
             if (res.equalsIgnoreCase("si")) {
-                actual = actual.getRight();
-            }else if (res.equalsIgnoreCase("no")) {
                 actual = actual.getLeft();
+            }else if (res.equalsIgnoreCase("no")) {
+                actual = actual.getRight();
             }else {
                 System.out.println("Debes escribir si o no");
             }
         }
-        System.out.println(actual);
-        res = in.nextLine().trim();
-        if (res.equalsIgnoreCase("si")) {
-                System.out.println("He adivinado tu personaje :3");;
+        boolean repe = true;
+        while (repe) {
+            System.out.println(actual);
+            res = in.nextLine().trim();
+            if (res.equalsIgnoreCase("si")) {
+                System.out.println("He adivinado tu personaje :3");
+                repe = false;
             }else if (res.equalsIgnoreCase("no")) {
-                System.out.println("aqui va la nueva pregunta");
-                String pregunta = in.nextLine();
-                System.out.println(pregunta);
+                System.out.println("¿En que personaje estas pensando?");
+                newItem = in.nextLine();
+                insert((T)newItem,(K)actual.getKey(),actual);
+                System.out.println("Escribe la pregunta que ayudara a adivinar tu personaje");
+                pregunta = in.nextLine();
+                Integer key = ((Integer) actual.getKey())+1;
+                String aux = (String) actual.getElement();
+                actual.setElement((T)pregunta);
+                insert((T)aux,(K)key,actual);
+                repe = false;
             }else {
                 System.out.println("Debes escribir si o no");
-            }
+            }    
+        }  
     }
 }
