@@ -21,6 +21,8 @@ public class Main implements Serializable {
             System.out.println("1. Insertar");
             System.out.println("2. Salir");
             System.out.println("3. Mostrar Preorden");
+            System.out.println("4. limpiar el arbol");
+            System.out.println("5. recorrer el arbol");
             System.out.println("ingrese la opcion: ");
             opc = in.nextInt();
 
@@ -52,6 +54,12 @@ public class Main implements Serializable {
                         } else {
                             System.out.println("\tEl árbol es vacío");
                         }
+                    break;
+                case 4:
+                        binarySearchTree.clear();
+                    break;
+                case 5:
+                        binarySearchTree.rove();
                     break;
                 default:
                     break;

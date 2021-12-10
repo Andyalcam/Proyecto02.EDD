@@ -4,6 +4,7 @@ import java.lang.NumberFormatException;
 import java.lang.IndexOutOfBoundsException;
 import java.lang.NullPointerException;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearchTree<K,T>, Serializable {
 
     private BinaryNode<K, T> root;
@@ -302,12 +303,45 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
         return root == null;
     }
 
+    public void clear(){
+        root = null;
+    }
+
+    public void addQ(){
+        
+    }
+
     /**
      * Metodo que recorre el árbol segun se decida, izq o derecha
      */
-    /*public void rove(){
-        BinaryNode actual = new BinaryNode();
+    public void rove(){
+        Scanner in = new Scanner(System.in);
+        String res;
+
+        BinaryNode actual;
         actual = root;
+
+        while (!actual.isLeaf()) {
+            System.out.println(actual);
+            res = in.nextLine().trim();
+            if (res.equalsIgnoreCase("si")) {
+                actual = actual.getRight();
+            }else if (res.equalsIgnoreCase("no")) {
+                actual = actual.getLeft();
+            }else {
+                System.out.println("Debes escribir si o no");
+            }
+        }
         System.out.println(actual);
-    }*/
+        res = in.nextLine().trim();
+        if (res.equalsIgnoreCase("si")) {
+                System.out.println("He adivinado tu personaje :3");;
+            }else if (res.equalsIgnoreCase("no")) {
+                System.out.println("aqui va la nueva pregunta");
+                String pregunta = in.nextLine();
+                System.out.println(pregunta);
+            }else {
+                System.out.println("Debes escribir si o no");
+            }
+    }
 }
