@@ -320,8 +320,7 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
      */
     public void rove(){
         Scanner in = new Scanner(System.in);
-        String res;
-        String newItem, pregunta;
+        String res,newItem, pregunta,aux;
 
         BinaryNode actual;
         actual = root;
@@ -347,11 +346,12 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
             }else if (res.equalsIgnoreCase("no")) {
                 System.out.println("¿En que personaje estas pensando?");
                 newItem = in.nextLine();
+                newItem = ("¿Es " + newItem + "?");
                 insert((T)newItem,(K)actual.getKey(),actual);
                 System.out.println("Escribe la pregunta que ayudara a adivinar tu personaje");
                 pregunta = in.nextLine();
                 Integer key = ((Integer) actual.getKey())+1;
-                String aux = (String) actual.getElement();
+                aux = (String) actual.getElement();
                 actual.setElement((T)pregunta);
                 insert((T)aux,(K)key,actual);
                 repe = false;

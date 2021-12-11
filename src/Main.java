@@ -9,7 +9,7 @@ public class Main implements Serializable {
         Scanner on = new Scanner(System.in);
 
         int opc,b;
-        boolean salir = false;
+        boolean volver = true, excep = true;
         String tupla = "";
         String a = "";
 
@@ -18,8 +18,58 @@ public class Main implements Serializable {
         binarySearchTree = (BinarySearchTree)util.leerObjetoArchivo("src/BancoDePreguntas/BancoDePreguntas.dat");
 
         System.out.println("\t*** BIENVENIDO A 20 PREGUNTAS ***");
-        System.out.println("\nTeclea ");
+        do{
+            System.out.println("\nPresiona enter para jugar");
+            in.nextLine();
 
+            binarySearchTree.rove();
+            util.escribirObjetosArchivo("src/BancoDePreguntas/BancoDePreguntas.dat",binarySearchTree);
+
+            System.out.println("\nEl juego terminó...\t¿Qué deseas hacer?\n");
+
+            excep = true;
+            while (excep) {
+                try{
+                    System.out.println("1. Volver a jugar");
+                    System.out.println("2. Mostrar el listado de las preguntas en orden alfabetico");
+                    System.out.println("3. Mostrar el listado de las preguntas en el orden en que fueron agregadas");
+                    System.out.println("4. Mostrar el listado de los entes en orden alfabetico");
+                    System.out.println("5. Mostrar el listado de los entes en el orden en que fueron agregados");
+                    System.out.println("6. Salir");
+                    System.out.println("Ingresa una opción");
+
+                    opc = on.nextInt();
+
+                    switch (opc) {
+                        case 1:
+                                volver = true;
+                                excep = false;
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                                util.escribirObjetosArchivo("src/BancoDePreguntas/BancoDePreguntas.dat",binarySearchTree);
+                                volver = false;
+                                excep = false;
+                            break;
+                        default:
+                                System.out.println("Elige una opcion del menu plis :c\n");
+                            break;
+                    }
+                }catch (Exception e) {
+                    System.out.println("\tDebes ingresar un número\tIntentalo de nuevo\n");
+                    on.next();
+                    excep = true;
+                }
+            }        
+        }while(volver);
+            
         /*while (salir == false) {
             System.out.println("1. Insertar");
             System.out.println("2. Salir");
