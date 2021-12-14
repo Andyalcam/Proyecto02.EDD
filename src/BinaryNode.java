@@ -65,6 +65,6 @@ public class BinaryNode<K extends Comparable,T> implements Serializable{
     }
 
     public String toString(){
-        return (String)getElement();
+        return this.getElement()+"";
     }
 }

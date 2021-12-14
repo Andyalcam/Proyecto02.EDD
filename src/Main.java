@@ -1,7 +1,10 @@
 import java.io.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main implements Serializable {
+
+        static List<Element> list = new List<>();
 
     public static void main(String[] args) {
 
@@ -9,68 +12,90 @@ public class Main implements Serializable {
         Scanner on = new Scanner(System.in);
 
         int opc,b;
-        boolean volver = true, excep = true;
+        boolean volver = true, excep;
         String tupla = "";
         String a = "";
-
-        BinarySearchTree binarySearchTree = new BinarySearchTree();
+        BinarySearchTree<Integer, Element> binarySearchTree;
         Utilidades util = new Utilidades();
-        binarySearchTree = (BinarySearchTree)util.leerObjetoArchivo("src/BancoDePreguntas/BancoDePreguntas.dat");
+        ///*
+        binarySearchTree = util.leerObjetoArchivo("src/BancoDePreguntas/BancoDePreguntas.dat");
 
-        System.out.println("\t*** BIENVENIDO A 20 PREGUNTAS ***");
-        do{
-            System.out.println("\nPresiona enter para jugar");
-            in.nextLine();
+        try {
+            System.out.println("\t*** BIENVENIDO A 20 PREGUNTAS ***");
+            do {
+                System.out.println("\nPresiona enter para jugar");
+                in.nextLine();
 
-            binarySearchTree.rove();
-            util.escribirObjetosArchivo("src/BancoDePreguntas/BancoDePreguntas.dat",binarySearchTree);
+                binarySearchTree.rove();
+                util.escribirObjetosArchivo("src/BancoDePreguntas/BancoDePreguntas.dat", binarySearchTree);
 
-            System.out.println("\nEl juego terminó...\t¿Qué deseas hacer?\n");
+                System.out.println("\nEl juego terminó...\t¿Qué deseas hacer?\n");
 
-            excep = true;
-            while (excep) {
-                try{
-                    System.out.println("1. Volver a jugar");
-                    System.out.println("2. Mostrar el listado de las preguntas en orden alfabetico");
-                    System.out.println("3. Mostrar el listado de las preguntas en el orden en que fueron agregadas");
-                    System.out.println("4. Mostrar el listado de los entes en orden alfabetico");
-                    System.out.println("5. Mostrar el listado de los entes en el orden en que fueron agregados");
-                    System.out.println("6. Salir");
-                    System.out.println("Ingresa una opción");
+                excep = true;
+                while (excep) {
+                    try {
+                        System.out.println("1. Volver a jugar");
+                        System.out.println("2. Mostrar el listado de las preguntas en orden alfabético");
+                        System.out.println("3. Mostrar el listado de las preguntas en el orden en que fueron agregadas");
+                        System.out.println("4. Mostrar el listado de los entes en orden alfabético");
+                        System.out.println("5. Mostrar el listado de los entes en el orden en que fueron agregados");
+                        System.out.println("6. Salir");
+                        System.out.println("Ingresa una opción");
 
-                    opc = on.nextInt();
+                        opc = on.nextInt();
 
-                    switch (opc) {
-                        case 1:
+                        switch (opc) {
+                            case 1:
                                 volver = true;
                                 excep = false;
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            break;
-                        case 5:
-                            break;
-                        case 6:
-                                util.escribirObjetosArchivo("src/BancoDePreguntas/BancoDePreguntas.dat",binarySearchTree);
+                                list.clear();
+                                break;
+                            case 2:
+                                binarySearchTree.preOrdenQuestions();
+                                System.out.println(list.orderList("ASC"));
+                                break;
+                            case 3:
+                                binarySearchTree.preOrdenQuestions();
+                                System.out.println(list.orderList("ADD"));
+                                break;
+                            case 4:
+                                binarySearchTree.preOrdenCharacters();
+                                System.out.println(list.orderList("ASC"));
+                                break;
+                            case 5:
+                                binarySearchTree.preOrdenCharacters();
+                                list.orderList("ADD");
+                                System.out.println(list);
+                                break;
+                            case 6:
+                                util.escribirObjetosArchivo("src/BancoDePreguntas/BancoDePreguntas.dat", binarySearchTree);
                                 volver = false;
                                 excep = false;
-                            break;
-                        default:
-                                System.out.println("Elige una opcion del menu plis :c\n");
-                            break;
+                                break;
+                            default:
+                                System.out.println("Elige una opción del menu plis :c\n");
+                                break;
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println(e);
+                        System.out.println("\tDebes ingresar un número\tIntentalo de nuevo\n");
+                        on.next();
+                        excep = true;
                     }
-                }catch (Exception e) {
-                    System.out.println("\tDebes ingresar un número\tIntentalo de nuevo\n");
-                    on.next();
-                    excep = true;
                 }
-            }        
-        }while(volver);
-            
-        /*while (salir == false) {
+            } while (volver);
+        }catch (NullPointerException nullPointerException){
+            System.out.println("Ingresa un banco de preguntas válido");
+        }
+        //*/
+
+
+        /*
+        binarySearchTree = util.leerObjetoArchivo("src/BancoDePreguntas/BancoDePreguntas.dat");
+        boolean salir = false;
+        //DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy - HH:mm:ss");
+
+        while (!salir) {
             System.out.println("1. Insertar");
             System.out.println("2. Salir");
             System.out.println("3. Mostrar Preorden");
@@ -88,7 +113,8 @@ public class Main implements Serializable {
                                 tupla = on.nextLine().trim();
                                 a = (tupla.split(",")[0]).trim();
                                 b = Integer.parseInt(tupla.split(",")[1]);
-                                binarySearchTree = util.insertar(a,b);
+                                Element element = new Element(a, new Date());
+                                binarySearchTree = util.insertar(element,b);
                                 repe = false;
                             } catch (Exception e) {
                                 System.out.println("\t Intentalo de nuevo. Sigue el ejemplo :)");
@@ -112,37 +138,14 @@ public class Main implements Serializable {
                         binarySearchTree.clear();
                     break;
                 case 5:
-                        binarySearchTree.rove();
+                        //binarySearchTree.rove();
                     break;
                 default:
                     break;
-                
+
             }
         }
-        
-        /*binarySearchTree.insert("Oa", 20);
-        binarySearchTree.insert("Crayoa", 17);
-        binarySearchTree.insert("Wofito", 21);
-
-        //binarySearchTree.preorden();
-
-
-        try {
-            /*ObjectOutputStream bancoDePreguntas = new ObjectOutputStream(new FileOutputStream("src/BancoDePreguntas/BancoDePreguntas.dat"));
-            bancoDePreguntas.writeObject(binarySearchTree);
-            bancoDePreguntas.close();
-
-            ObjectInputStream bancoDePreguntas = new ObjectInputStream(new FileInputStream("src/BancoDePreguntas/BancoDePreguntas.dat"));
-            BinarySearchTree arbolDePreguntas = (BinarySearchTree) bancoDePreguntas.readObject();
-            bancoDePreguntas.close();
-
-            System.out.println("Banco de Preguntas PreOrden:");
-            arbolDePreguntas.preorden();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
+        */
     }
 
 }

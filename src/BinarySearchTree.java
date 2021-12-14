@@ -1,13 +1,11 @@
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Scanner;
-import java.lang.NumberFormatException;
-import java.lang.IndexOutOfBoundsException;
-import java.lang.NullPointerException;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+
 public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearchTree<K,T>, Serializable {
 
     private BinaryNode<K, T> root;
+
 
     /**
      * Recupera el objeto con clave k.
@@ -311,48 +309,93 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
         root = null;
     }
 
-    public void addQ(){
+    public void preOrdenQuestions(){
+        Main.list.clear();
+        preOrdenQuestions(root);
+    }
+    private void preOrdenQuestions(BinaryNode node){
+        if(node == null)
+            return;
+        else if(!node.isLeaf())
+            Main.list.add(Main.list.size(), (Element) node.getElement());
+
+        preOrdenQuestions(node.getLeft());
+        preOrdenQuestions(node.getRight());
 
     }
 
+    public void preOrdenCharacters(){
+        Main.list.clear();
+        preOrdenCharacters(root);
+    }
+
+    private void preOrdenCharacters(BinaryNode node){
+        if(node == null)
+            return;
+        else if(node.isLeaf())
+            Main.list.add(Main.list.size(), (Element) node.getElement());
+
+        preOrdenCharacters(node.getLeft());
+        preOrdenCharacters(node.getRight());
+    }
+
+
     /**
-     * Metodo que recorre el árbol segun se decida, izq o derecha
+     * Metodo que recorre el árbol según se decida, izq o derecha
      */
     public void rove(){
         Scanner in = new Scanner(System.in);
-        String res,newItem, pregunta,aux;
+        String res,newItem, pregunta;
 
         BinaryNode actual;
         actual = root;
+        Element nodo = (Element) actual.getElement();
 
         while (!actual.isLeaf()) {
-            System.out.println(actual);
+            System.out.println(nodo.getElement());
             res = in.nextLine().trim();
-            if (res.equalsIgnoreCase("si")) {
+            if (res.equalsIgnoreCase("si") || res.equalsIgnoreCase("chi")) {
                 actual = actual.getLeft();
-            }else if (res.equalsIgnoreCase("no")) {
+            }else if (res.equalsIgnoreCase("no") || res.equalsIgnoreCase("ño")) {
                 actual = actual.getRight();
             }else {
                 System.out.println("Debes escribir si o no");
             }
+            nodo = (Element) actual.getElement();
         }
         boolean repe = true;
+        boolean confirmacion = true;
         while (repe) {
-            System.out.println(actual);
+            System.out.println("Tu personaje es ¿" + nodo.getElement() + "?");
             res = in.nextLine().trim();
-            if (res.equalsIgnoreCase("si")) {
+            if (res.equalsIgnoreCase("si") || res.equalsIgnoreCase("chi")) {
                 System.out.println("He adivinado tu personaje :3");
                 repe = false;
-            }else if (res.equalsIgnoreCase("no")) {
-                System.out.println("¿En que personaje estas pensando?");
-                newItem = in.nextLine();
-                newItem = ("¿Es " + newItem + "?");
-                insert((T)newItem,(K)actual.getKey(),actual);
-                System.out.println("Escribe la pregunta que ayudara a adivinar tu personaje");
+            }else if (res.equalsIgnoreCase("no") || res.equalsIgnoreCase("ño")) {
+                do{
+                    System.out.println("¿En que personaje estas pensando?");
+                    newItem = in.nextLine();
+                    System.out.println("¿Ingresaste " + newItem + "?. Escribe Si para confirmar o No para reescribir.");
+                    String respuesta = in.nextLine();
+                    if(respuesta.equalsIgnoreCase("si") || respuesta.equalsIgnoreCase("chi")){
+                        confirmacion = false;
+                    }else if(respuesta.equalsIgnoreCase("no") || respuesta.equalsIgnoreCase("ño")){
+                        confirmacion = true;
+                    }else{
+                        System.out.println("Ingresa solamente si o no");
+                        confirmacion = true;
+                    }
+                }while(confirmacion);
+                Element personaje = new Element(newItem, new Date());
+                insert((T)personaje,(K)actual.getKey(),actual);
+                System.out.println("Escribe la pregunta que ayudará a adivinar tu personaje");
                 pregunta = in.nextLine();
                 Integer key = ((Integer) actual.getKey())+1;
-                aux = (String) actual.getElement();
-                actual.setElement((T)pregunta);
+
+                Element aux = (Element) actual.getElement();
+
+                actual.setElement((T) new Element(pregunta, new Date()));
+
                 insert((T)aux,(K)key,actual);
                 repe = false;
             }else {
