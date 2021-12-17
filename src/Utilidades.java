@@ -15,16 +15,6 @@ public class Utilidades <T> {
 	BinarySearchTree bst = new BinarySearchTree();
 
 	/**
-	* Metodo para agregar elementos a un arbol
-	* @param elem - elemento que se va a almacenar
-	* @return arbol ya con elementos
-	*/
-	public BinarySearchTree insertar(T elem, int clave){
-		bst.insert(elem,clave);
-		return bst;
-	}
-
-	/**
 	* Metodo para leer objetos de tipo BST
 	* @param ruta_del_archivo - nombre del archivo
 	* @return Binary Search Tree

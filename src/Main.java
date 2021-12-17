@@ -1,7 +1,5 @@
 import java.io.*;
-import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.Date;
 
 public class Main implements Serializable {
 
@@ -12,13 +10,10 @@ public class Main implements Serializable {
         Scanner in = new Scanner(System.in);
         Scanner on = new Scanner(System.in);
 
-        int opc,b;
+        int opc;
         boolean volver = true, excep;
-        String tupla = "";
-        String a = "";
         BinarySearchTree<Integer, Element> binarySearchTree;
         Utilidades util = new Utilidades();
-        ///*
         binarySearchTree = util.leerObjetoArchivo("src/BancoDePreguntas/BancoDePreguntas.dat");
 
         try {
@@ -89,67 +84,7 @@ public class Main implements Serializable {
                 }
             } while (volver);
         }catch (Exception e){
-            System.out.println(e+"Ingresa un banco de preguntas válido");
+            System.out.println("Ingresa un banco de preguntas válido");
         }
-        //*/
-
-
-        /*
-        binarySearchTree = util.leerObjetoArchivo("src/BancoDePreguntas/BancoDePreguntas.dat");
-        boolean salir = false;
-        //DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy - HH:mm:ss");
-
-        while (!salir) {
-            System.out.println("1. Insertar");
-            System.out.println("2. Salir");
-            System.out.println("3. Mostrar Preorden");
-            System.out.println("4. limpiar el arbol");
-            System.out.println("5. recorrer el arbol");
-            System.out.println("ingrese la opcion: ");
-            opc = in.nextInt();
-
-            switch (opc) {
-                case 1:
-                        System.out.println("Ingresa el elemento que quieres insertar y su clave. Ej: 2,3");
-                        boolean repe = true;
-                        while (repe) {
-                            try {
-                                tupla = on.nextLine().trim();
-                                a = (tupla.split(",")[0]).trim();
-                                b = Integer.parseInt(tupla.split(",")[1]);
-                                Element element = new Element(a, new Date());
-                                binarySearchTree = util.insertar(element,b);
-                                repe = false;
-                            } catch (Exception e) {
-                                System.out.println("\t Intentalo de nuevo. Sigue el ejemplo :)");
-                            }
-                        }
-                    break;
-                case 2:
-                        util.escribirObjetosArchivo("src/BancoDePreguntas/BancoDePreguntas.dat",binarySearchTree);
-                        salir = true;
-                    break;
-                case 3:
-                        if (!binarySearchTree.isEmpty()) {
-                            System.out.print("El preorden es: ");
-                            binarySearchTree.preorden();
-                            System.out.println();
-                        } else {
-                            System.out.println("\tEl árbol es vacío");
-                        }
-                    break;
-                case 4:
-                        binarySearchTree.clear();
-                    break;
-                case 5:
-                        //binarySearchTree.rove();
-                    break;
-                default:
-                    break;
-
-            }
-        }
-        */
     }
-
 }

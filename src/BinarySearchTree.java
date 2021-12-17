@@ -1,7 +1,12 @@
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Scanner;
-
+/**
+* Clase de implementa la interfaz de TDABinarySearchTree con los metodos necesarios para implementar el juego 20 preguntas
+* @author Andrea Alvarado Camacho
+* @author Alfonso Mondragón Segoviano
+* @version 1.3
+*/
 public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearchTree<K,T>, Serializable {
 
     private BinaryNode<K, T> root;
@@ -306,14 +311,25 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
         return root == null;
     }
 
+    /**
+     * Metodo que deja el árbol vacio
+     */
     public void clear(){
         root = null;
     }
 
+    /**
+     * Metodo que muestra el preorden de los nodos de un arbol excepto sus hojas
+     */
     public void preOrdenQuestions(){
         Main.list.clear();
         preOrdenQuestions(root);
     }
+    
+    /**
+     * Metodo auxiliar que muestra el preorden de los nodos de un arbol excepto sus hojas
+     * @param node - Nodo a partir del cual se va a empezar el preorden
+     */
     private void preOrdenQuestions(BinaryNode node){
         if(node == null)
             return;
@@ -325,11 +341,18 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
 
     }
 
+    /**
+     * Metodo que muestra el preorden de los nodos hojas de un arbol
+     */
     public void preOrdenCharacters(){
         Main.list.clear();
         preOrdenCharacters(root);
     }
 
+    /**
+     * Metodo auxiliar que muestra el preorden de los nodos hojas de un arbol
+     * @param node - Nodo a partir del cual se va a empezar el preorden
+     */
     private void preOrdenCharacters(BinaryNode node){
         if(node == null)
             return;
@@ -341,6 +364,8 @@ public class BinarySearchTree <K extends Comparable,T> implements TDABinarySearc
     }
 
     /**
+     * Metodo que regresa el contador con el numero de preguntas que se le ha hecho al usuario
+     * @return int - entero con el valor
      */
     public int getContador(){
         return contador;
